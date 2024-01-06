@@ -1,0 +1,9 @@
+SELECT 
+name AS company, 
+date_format(date_parse(ts, '%Y-%m-%d %H:%i:%s'), '%Y-%m-%d') AS date, 
+avg(volatility) AS average_volatility,
+max(volatility) AS highest_volatility,
+min(volatility) AS lowest_volatility
+FROM kinesis_lambda_data_cl
+GROUP BY name, date_format(date_parse(ts, '%Y-%m-%d %H:%i:%s'), '%Y-%m-%d')
+order by 1, 2;
